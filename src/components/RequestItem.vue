@@ -22,7 +22,7 @@
         <li 
           v-for="image in request.images"
           :key="image.id">
-          <a href="">
+          <a :href="image.image" target="_blank">
             <i class="fa fa-image text-success"></i> {{ image.slug }}
           </a>
         </li>

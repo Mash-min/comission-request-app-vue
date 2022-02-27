@@ -88,7 +88,7 @@ export default {
     ...mapActions(['addRequest']), 
 
     handleFile(e) {
-      this.newRequest.images = e.target.files
+      this.newRequest.images = [...e.target.files]
     },
 
     submitRequest() {

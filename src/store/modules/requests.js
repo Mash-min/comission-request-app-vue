@@ -83,9 +83,30 @@ const actions = {
         price: payload.price,
         images: payload.images.length
       })
+
+      // ============ Upload product image =============
+      payload.images.forEach(image => {
+        let formData = new FormData()
+        formData.append('file', image)
+        formData.append('upload_preset', 'grwsuw9d')
+        fetch('https://api.cloudinary.com/v1_1/dv1tdnpbu/image/upload', {
+          method: 'POST',
+          body: formData
+        })
+        .then(res => { return res.json() })
+        .then(data => {
+          axios.post('api/commission-requests/images', {
+            image: data.url,
+            commission_request_id: response.data.request.id
+          })
+        })
+        .catch(err => console.error(err.response))
+      })
+
       commit('addRequest', response.data.request)
       commit('clearRequest')
-      commit('setRequestErrors', [])
+
+      console.log(response)
       Swal.fire({ title: 'Request added!', icon: 'success' })
     } catch (e) {
       console.error(e.response)
