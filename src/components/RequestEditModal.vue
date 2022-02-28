@@ -58,6 +58,11 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'RequestEditModal',
+  data() {
+    return {
+      modal: null
+    }
+  },
   computed: {
     ...mapGetters([
         'request',

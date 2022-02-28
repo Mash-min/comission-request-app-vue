@@ -38,6 +38,27 @@ const actions = {
     commit('setOfferErrors', [])
     try {
       const response = await axios.post('api/offers', payload)
+
+      payload.images.forEach(image => {
+        let formData = new FormData()
+        formData.append('file', image)
+        formData.append('upload_preset', 'bjzbwdxf')
+
+        fetch('https://api.cloudinary.com/v1_1/dv1tdnpbu/image/upload', {
+          method: 'POST',
+          body: formData
+        })
+        .then(data => data.json())
+        .then(res => {
+          axios.post('api/offers/images', {
+            image: res.url,
+            offer_id: response.data.offer.id
+          })
+          .catch(err => console.error(err.response))
+        })
+        .catch(err => console.error(err.response))
+      })
+
       commit('clearOffer')
       Swal.fire({ title: response.data.message })
     } catch (e) {

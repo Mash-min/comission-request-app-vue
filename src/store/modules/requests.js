@@ -19,7 +19,7 @@ const state = {
   requestLinks: [],
   requestErrors: [],
   search: {
-    request: ''
+    request: ""
   }
 }
 
@@ -152,10 +152,10 @@ const actions = {
     }
   },
 
-  async searchRequest({ commit }, data) {
+  async searchRequest({ commit }, payload) {
     showLoader("Searching...")
     try {
-      const response = await axios.get(`api/commission-requests/search/${data}`)
+      const response = await axios.get(`api/commission-requests/search/${payload}`)
       commit('setRequests', response.data.requests.data)
       commit('setRequestLinks', response.data.requests.links)
       Swal.close()

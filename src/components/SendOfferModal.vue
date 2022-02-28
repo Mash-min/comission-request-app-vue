@@ -93,8 +93,7 @@ export default {
     ...mapActions(['addOffer']), 
 
     handleImage(e) {
-      const images = e.target.files
-      this.newOffer.images = [...images]
+      this.newOffer.images = [...e.target.files]
     },
 
     submitOffer() {
